@@ -37,7 +37,7 @@ async def video_info_handler(c: Client, m: Message):
     flags = [i.strip() for i in m.text.split('--')]
     for f in flags:
         if "change-file-name" in f:
-            new_file_name = f[len("change-file-name"):].strip().rsplit(".", 1)[0] + ".mkv"
+            new_file_name = f'{f[len("change-file-name"):].strip().rsplit(".", 1)[0]}.mkv'
         if "change-title" in f:
             title = f[len("change-title"):].strip()
         if "change-video-title" in f:
@@ -51,7 +51,7 @@ async def video_info_handler(c: Client, m: Message):
         await m.reply_text("This is not a Video!", True)
         return
     editable = await m.reply_text("Downloading Video ...", quote=True)
-    dl_loc = Config.DOWNLOAD_DIR + "/" + str(m.from_user.id) + "/"
+    dl_loc = f'{Config.DOWNLOAD_DIR}/' + str(m.from_user.id) + "/"
     if not os.path.isdir(dl_loc):
         os.makedirs(dl_loc)
     c_time = time.time()

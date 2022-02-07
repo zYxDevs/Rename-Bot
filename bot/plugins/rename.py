@@ -33,10 +33,11 @@ async def rename_handler(c: Client, m: Message):
     if m.from_user.id not in Config.PRO_USERS:
         is_in_gap, sleep_time = await check_time_gap(m.from_user.id)
         if is_in_gap:
-            await m.reply_text("Sorry Sir,\n"
-                               "No Flooding Allowed!\n\n"
-                               f"Send After `{str(sleep_time)}s` !!",
-                               quote=True)
+            await m.reply_text(
+                f'Sorry Sir,\nNo Flooding Allowed!\n\nSend After `{sleep_time}s` !!',
+                quote=True,
+            )
+
             return
     await add_user_to_database(c, m)
     if (not m.reply_to_message) or (not m.reply_to_message.media) or (not get_file_attr(m.reply_to_message)):
@@ -54,9 +55,13 @@ async def rename_handler(c: Client, m: Message):
     _raw_file_name = get_media_file_name(m.reply_to_message)
     if not _raw_file_name:
         _file_ext = mimetypes.guess_extension(get_file_attr(m.reply_to_message).mime_type)
-        _raw_file_name = "UnknownFileName" + _file_ext
+        _raw_file_name = f'UnknownFileName{_file_ext}'
     if user_input_msg.text.rsplit(".", 1)[-1].lower() != _raw_file_name.rsplit(".", 1)[-1].lower():
-        file_name = user_input_msg.text.rsplit(".", 1)[0][:255] + "." + _raw_file_name.rsplit(".", 1)[-1].lower()
+        file_name = (
+            f'{user_input_msg.text.rsplit(".", 1)[0][:255]}.'
+            + _raw_file_name.rsplit(".", 1)[-1].lower()
+        )
+
     else:
         file_name = user_input_msg.text[:255]
     await editable.edit("Please Wait ...")

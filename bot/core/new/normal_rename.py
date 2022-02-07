@@ -86,8 +86,7 @@ class NormalRename(Scaffold):
                 if has_db_thumb or (not upload_as_doc):
                     if (not width) or (not height):
                         height, width = await get_thumbnail_info(thumb)
-                    resize_thumb = kwargs.get("resize_thumb", False)
-                    if resize_thumb:
+                    if resize_thumb := kwargs.get("resize_thumb", False):
                         thumb = await fix_thumbnail(thumb, height)
                     _thumb = await self.save_file(thumb)
                     await rm_file(thumb)

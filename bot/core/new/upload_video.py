@@ -83,20 +83,14 @@ class UploadVideo:
             if not os.path.exists(video):
                 return None
             try:
-                ss_dir = f"{Config.DOWN_PATH}/Thumbnails/{str(time.time())}/"
+                ss_dir = f'{Config.DOWN_PATH}/Thumbnails/{time.time()}/'
                 thumbnail = await take_screen_shot(
                     video_file=video,
                     output_directory=ss_dir,
                     ttl=random.randint(0, (duration or 1) - 1)
                 )
-                if metadata.has("width"):
-                    t_width = metadata.get("width")
-                else:
-                    t_width = width or 90
-                if metadata.has("height"):
-                    t_height = metadata.get("height")
-                else:
-                    t_height = height or 90
+                t_width = metadata.get("width") if metadata.has("width") else width or 90
+                t_height = metadata.get("height") if metadata.has("height") else height or 90
                 if os.path.exists(thumbnail):
                     Image.open(thumbnail).convert("RGB").save(thumbnail)
                     img = Image.open(thumbnail)

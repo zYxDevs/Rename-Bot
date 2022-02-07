@@ -15,9 +15,7 @@ async def handle_not_big(
     upload_mode: str = "document",
     thumb: str = None,
 ):
-    reply_markup = m.reply_to_message.reply_markup \
-        if m.reply_to_message.reply_markup \
-        else None
+    reply_markup = m.reply_to_message.reply_markup or None
     _db_caption = await db.get_caption(m.from_user.id)
     apply_caption = await db.get_apply_caption(m.from_user.id)
     if (not _db_caption) and (apply_caption is True):
@@ -38,27 +36,15 @@ async def handle_not_big(
     if (upload_as_doc is False) and (upload_mode == "video"):
         performer = None
         title = None
-        duration = m.reply_to_message.video.duration \
-            if m.reply_to_message.video.duration \
-            else 0
-        width = m.reply_to_message.video.width \
-            if m.reply_to_message.video.width \
-            else 0
-        height = m.reply_to_message.video.height \
-            if m.reply_to_message.video.height \
-            else 0
+        duration = m.reply_to_message.video.duration or 0
+        width = m.reply_to_message.video.width or 0
+        height = m.reply_to_message.video.height or 0
     elif (upload_as_doc is False) and (upload_mode == "audio"):
         width = None
         height = None
-        duration = m.reply_to_message.audio.duration \
-            if m.reply_to_message.audio.duration \
-            else None
-        performer = m.reply_to_message.audio.performer \
-            if m.reply_to_message.audio.performer \
-            else None
-        title = m.reply_to_message.audio.title \
-            if m.reply_to_message.audio.title \
-            else None
+        duration = m.reply_to_message.audio.duration or None
+        performer = m.reply_to_message.audio.performer or None
+        title = m.reply_to_message.audio.title or None
     else:
         duration = None
         width = None

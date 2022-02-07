@@ -9,17 +9,11 @@ async def get_thumbnail_info(thumb_path: str):
         metadata = extractMetadata(createParser(thumb_path))
     except: return 0, 0
     try:
-        if metadata.has("height"):
-            height = metadata.get("height")
-        else:
-            height = 0
+        height = metadata.get("height") if metadata.has("height") else 0
     except:
         height = 0
     try:
-        if metadata.has("width"):
-            width = metadata.get("width")
-        else:
-            width = 0
+        width = metadata.get("width") if metadata.has("width") else 0
     except:
         width = 0
 
