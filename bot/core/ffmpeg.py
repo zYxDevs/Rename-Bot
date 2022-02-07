@@ -22,7 +22,7 @@ async def take_screen_shot(video_file, output_directory, ttl) -> Optional[str]:
     output_dir = f'{output_directory}/{time.time()}/'
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    output_filepath = output_dir + "thumbnail.jpg"
+    output_filepath = f'{output_dir}thumbnail.jpg'
     file_genertor_command = [
         "ffmpeg",
         "-ss",

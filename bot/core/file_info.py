@@ -90,11 +90,9 @@ def get_file_attr(message: Message):
     Combine audio or video or document
     """
 
-    media = message.audio or \
+    return message.audio or \
             message.video or \
             message.document
-
-    return media
 
 
 def get_thumb_file_id(message: Message):

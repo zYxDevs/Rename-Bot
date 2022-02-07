@@ -62,7 +62,7 @@ async def get_audio_or_video_duration(path: str, provider: str = "ffprobe"):
             duration = 0
         else:
             try:
-                duration = int(int(stdout) / 1000)
+                duration = int(stdout) // 1000
             except: pass
     return duration
 
